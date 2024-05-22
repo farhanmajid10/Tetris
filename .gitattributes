@@ -1,0 +1,2 @@
+SDL2_ttf.dll filter=lfs diff=lfs merge=lfs -text
+src2/lib/libSLD2_ttf.a filter=lfs diff=lfs merge=lfs -text
