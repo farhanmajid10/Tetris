@@ -3,10 +3,11 @@
 
 #include "GameState.hpp"
 #include "Renderer.hpp"
+#include "Game.hpp"
 
 class GameOverState : public GameState {
 public:
-    GameOverState(GameStateManager& gameStateManager, Renderer& renderer, int finalScore);
+    GameOverState(GameStateManager& gameStateManager, Renderer& renderer, int finalScore, Game &game);
     void handleEvent(SDL_Event& event) override;
     void update() override;
     void render(Renderer& renderer) override;
@@ -14,6 +15,7 @@ public:
 private:
     Renderer& renderer;
     int finalScore;
+    Game &game;
 };
 
 #endif // GAME_OVER_STATE_HPP

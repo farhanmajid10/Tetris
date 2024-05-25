@@ -12,7 +12,7 @@ public:
 
     struct Cell {
         bool occupied;
-        SDL_Color color;  // Include color information
+        SDL_Color color;  
     };
 
     Board();
@@ -28,4 +28,4 @@ private:
     Cell grid[HEIGHT][WIDTH];
 };
 
-#endif // BOARD_HPP
+#endif 

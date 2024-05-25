@@ -28,10 +28,14 @@ void PlayingState::handleEvent(SDL_Event& event) {
                 hardDropPiece();
                 break;
             case SDLK_ESCAPE: // Ensure this case is correct
-                gameStateManager.pushState(GameStateManager::PAUSED_STATE);
+                gameStateManager.pushState(GameStateManager::PAUSED_STATE, score);
                 break;
         }
     }
+}
+
+int PlayingState::getScore() const{
+    return score;
 }
 
 void PlayingState::update() {
@@ -53,7 +57,7 @@ void PlayingState::update() {
 
 void PlayingState::render(Renderer& renderer) {
     std::cout << "Rendering PlayingState\n";
-    SDL_SetRenderDrawColor(renderer.getSDLRenderer(), 0, 0, 0, 255); // Set render color to black for clearing
+    SDL_SetRenderDrawColor(renderer.getSDLRenderer(), 0, 0, 0, 255);
     SDL_RenderClear(renderer.getSDLRenderer());
 
     int windowWidth = 800;
@@ -64,7 +68,7 @@ void PlayingState::render(Renderer& renderer) {
     int offsetY = (windowHeight - boardHeight) / 2;
 
     // Draw the board outline
-    SDL_SetRenderDrawColor(renderer.getSDLRenderer(), 255, 255, 255, 255); // White color
+    SDL_SetRenderDrawColor(renderer.getSDLRenderer(), 255, 255, 255, 255); 
     SDL_Rect boardOutline = {offsetX, offsetY, boardWidth, boardHeight};
     SDL_RenderDrawRect(renderer.getSDLRenderer(), &boardOutline);
 

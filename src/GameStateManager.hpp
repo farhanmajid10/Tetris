@@ -5,7 +5,9 @@
 #include <stack>
 #include "GameState.hpp"
 #include "Renderer.hpp"
+#include "Game.hpp"
 
+class Game;
 class GameStateManager {
 public:
     enum State {
@@ -15,10 +17,10 @@ public:
         GAME_OVER_STATE
     };
 
-    GameStateManager(Renderer& renderer);
+    GameStateManager(Renderer& renderer, Game &game);
 
     void changeState(State newState, int finalScore = 0);
-    void pushState(State newState);
+    void pushState(State newState, int currentScore = 0);
     void popState();
 
     void handleEvent(SDL_Event& event);
@@ -26,6 +28,7 @@ public:
     void render();
 
     Renderer* getRenderer();
+    //void endgame();
 
 private:
     std::unique_ptr<GameState> createState(State state, int finalScore = 0);
@@ -33,6 +36,7 @@ private:
     std::stack<std::unique_ptr<GameState>> stateStack;
     GameState* currentState;
     Renderer& renderer;
+    Game& game;
 };
 
 #endif // GAME_STATE_MANAGER_HPP

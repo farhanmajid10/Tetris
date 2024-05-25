@@ -12,6 +12,7 @@ public:
     void handleEvent(SDL_Event& event) override;
     void update() override;
     void render(Renderer& renderer) override;
+    int getScore() const;
 
 private:
     Renderer& renderer;

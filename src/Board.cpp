@@ -42,7 +42,7 @@ void Board::placePiece(const Piece& piece, int x, int y) {
                 int boardY = y + i;
                 if (boardX >= 0 && boardX < WIDTH && boardY >= 0 && boardY < HEIGHT) {
                     grid[boardY][boardX].occupied = true;
-                    grid[boardY][boardX].color = color; // Set the color
+                    grid[boardY][boardX].color = color;
                 }
             }
         }

@@ -1,8 +1,9 @@
 #include "Game.hpp"
+#include "GameStateManager.hpp"
+#include "Renderer.hpp" 
 #include <iostream>
 
-Game::Game()
-    : isRunning(true), window(nullptr), sdlRenderer(nullptr), renderer(nullptr), gameStateManager(renderer) {
+Game::Game() : isRunning(true), window(nullptr), sdlRenderer(nullptr), renderer(nullptr), gameStateManager(nullptr) {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         std::cerr << "Failed to initialize SDL: " << SDL_GetError() << std::endl;
         isRunning = false;
@@ -36,11 +37,18 @@ Game::Game()
     }
 
     SDL_SetRenderDrawColor(sdlRenderer, 0, 0, 0, 255); // Set background color to black
-    renderer = Renderer(sdlRenderer);
-    gameStateManager.changeState(GameStateManager::START_MENU_STATE);
+    renderer = new Renderer(sdlRenderer);
+    gameStateManager = new GameStateManager(*renderer, *this);
+    gameStateManager->changeState(GameStateManager::START_MENU_STATE);
+}
+
+void Game::quitgame(){
+    Game::isRunning = false;
 }
 
 Game::~Game() {
+    delete gameStateManager;
+    delete renderer;
     SDL_DestroyRenderer(sdlRenderer);
     SDL_DestroyWindow(window);
     TTF_Quit();
@@ -54,14 +62,12 @@ void Game::run() {
             if (event.type == SDL_QUIT) {
                 isRunning = false;
             } else {
-                gameStateManager.handleEvent(event);
+                gameStateManager->handleEvent(event);
             }
         }
-
-        gameStateManager.update();
-
+        gameStateManager->update();
         SDL_RenderClear(sdlRenderer);
-        gameStateManager.render();
+        gameStateManager->render();
         SDL_RenderPresent(sdlRenderer);
     }
 }

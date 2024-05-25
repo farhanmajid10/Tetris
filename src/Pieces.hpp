@@ -5,22 +5,24 @@
 
 class Piece {
 public:
+    
     using ShapeArray = int[4][4];
 
     Piece();
     const ShapeArray& getShape() const;
     int getWidth() const;
     int getHeight() const;
-    SDL_Color getColor() const;  // Add this method
+    SDL_Color getColor() const; 
 
+    //Primary:
     void rotate();
     void setShape(const ShapeArray& newshape);
     void setColor(SDL_Color newColor);
 
 private:
     ShapeArray shape;
-    SDL_Color color;  // Ensure this member exists
+    SDL_Color color;
     int x, y;
 };
 
-#endif // PIECES_HPP
+#endif
