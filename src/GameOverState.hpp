@@ -4,6 +4,7 @@
 #include "GameState.hpp"
 #include "Renderer.hpp"
 #include "Game.hpp"
+#include "HighScores.hpp"
 
 class GameOverState : public GameState {
 public:

@@ -95,4 +95,13 @@ void Board::draw(Renderer& renderer, int offsetX, int offsetY) const {
             }
         }
     }
+
+    SDL_SetRenderDrawColor(renderer.getSDLRenderer() , 255, 255, 255, 255);
+    for(int i = 0; i < HEIGHT; i++){
+        SDL_RenderDrawLine(renderer.getSDLRenderer(), offsetX, offsetY + (blockSize * i), offsetX + (WIDTH * blockSize), offsetY + (blockSize * i));
+    }
+
+    for(int i = 0; i < WIDTH; i++){
+        SDL_RenderDrawLine(renderer.getSDLRenderer(), offsetX + (blockSize * i), offsetY, offsetX + (blockSize * i), offsetY + (HEIGHT*blockSize));
+    }
 }

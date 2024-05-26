@@ -3,6 +3,7 @@
 
 #include <SDL2/SDL.h>
 #include "GameStateManager.hpp"
+#include "HighScores.hpp"
 
 class GameStateManager;
 class Renderer;
@@ -14,6 +15,7 @@ public:
     void run();
     bool getIsRunning() const;
     void quitgame();
+    HighScores& getHighScores();  // Add this method
 
 private:
     bool isRunning;
@@ -21,6 +23,7 @@ private:
     SDL_Renderer* sdlRenderer;
     Renderer* renderer;
     GameStateManager* gameStateManager;
+    HighScores highScores;  // Make sure this is initialized and used
 };
 
 #endif // GAME_HPP

@@ -1,6 +1,6 @@
 #include "Game.hpp"
 #include "GameStateManager.hpp"
-#include "Renderer.hpp" 
+#include "Renderer.hpp"
 #include <iostream>
 
 Game::Game() : isRunning(true), window(nullptr), sdlRenderer(nullptr), renderer(nullptr), gameStateManager(nullptr) {
@@ -39,14 +39,20 @@ Game::Game() : isRunning(true), window(nullptr), sdlRenderer(nullptr), renderer(
     SDL_SetRenderDrawColor(sdlRenderer, 0, 0, 0, 255); // Set background color to black
     renderer = new Renderer(sdlRenderer);
     gameStateManager = new GameStateManager(*renderer, *this);
+    highScores.loadFromFile("highscores.txt");  // Load high scores from a file
     gameStateManager->changeState(GameStateManager::START_MENU_STATE);
 }
 
 void Game::quitgame(){
-    Game::isRunning = false;
+    isRunning = false;
+}
+
+HighScores& Game::getHighScores() {
+    return highScores;
 }
 
 Game::~Game() {
+    highScores.saveToFile("highscores.txt");  // Save high scores to a file
     delete gameStateManager;
     delete renderer;
     SDL_DestroyRenderer(sdlRenderer);

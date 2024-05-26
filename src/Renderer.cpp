@@ -31,18 +31,22 @@ SDL_Texture* Renderer::createTextTexture(const char* text, SDL_Color color, SDL_
 
 void Renderer::drawPiece(const Piece& piece, int x, int y) const {
     const int blockSize = 20; // Size of each block in pixels
-    SDL_Rect blockRect = {0, 0, blockSize, blockSize};
+    //SDL_Rect blockRect = {0, 0, blockSize, blockSize};
 
     const auto& shape = piece.getShape();
     SDL_Color color = piece.getColor();
-    SDL_SetRenderDrawColor(sdlRenderer, color.r, color.g, color.b, color.a);
 
     for (int i = 0; i < 4; ++i) {
         for (int j = 0; j < 4; ++j) {
             if (shape[i][j] != 0) {
-                blockRect.x = x + j * blockSize;
-                blockRect.y = y + i * blockSize;
+                SDL_Rect blockRect = {x + j*blockSize, y + i * blockSize, blockSize, blockSize};
+                SDL_SetRenderDrawColor(sdlRenderer, color.r, color.g, color.b, color.a);
+                
                 SDL_RenderFillRect(sdlRenderer, &blockRect);
+                
+                
+                SDL_SetRenderDrawColor(sdlRenderer, 255, 255, 255, 255);
+                SDL_RenderDrawRect(sdlRenderer, &blockRect);
             }
         }
     }
